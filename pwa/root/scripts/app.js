@@ -16,7 +16,7 @@ var isSubscribed = false;
 var pushButton = document.querySelector('#butSubscribe');
 var swRegistration = null;
 const applicationServerPublicKey = 'BGcdDBag08O8cyoWC_b_RqH7k4nUPPA1rkhRvFRo70vMMQ - KsMepzqyuAVf_rrmz3_LbLW26eL - _WpavRYLcFL8';
-
+let showPrompt;
 (function () {
     'use strict';
 
@@ -38,6 +38,33 @@ const applicationServerPublicKey = 'BGcdDBag08O8cyoWC_b_RqH7k4nUPPA1rkhRvFRo70vM
      *
      ****************************************************************************/
 
+   
+    
+    window.addEventListener('beforeinstallprompt',(event)=>{
+        event.preventDefault();
+        console.log('beforeInstallPrompt');
+        showPrompt=event;
+        document.querySelector('#HomescreenBtn').style.display='block';
+    });
+    
+    window.addEventListener('appinstalled',(event)=>{
+      console.log('Already Added to HomeScreen');  
+    })
+    
+    
+    document.querySelector('#HomescreenBtn').addEventListener('click',(event)=>{
+        showPrompt.prompt();
+        showPrompt.userChoice
+          .then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+              console.log('User accepted the A2HS prompt');
+              gtag('event','click',{'event-category':'homescreen','event_action':'accepted'});
+            } else {
+              console.log('User dismissed the A2HS prompt');
+            }
+            showPrompt = null;
+      });
+    })
 
     document.getElementById('butRefresh').addEventListener('click', function () {
         // Refresh all of the forecasts

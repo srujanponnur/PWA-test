@@ -121,6 +121,13 @@ body {
         background: #3F51B5;
         border:none;
     }
+.Homescreensec{
+  align-content: center;
+  justify-content: center;
+  text-align:center;
+  display:none;
+    width:100%;
+}
 .header__title {
   font-weight: 400;
   font-size: 20px;
