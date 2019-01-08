@@ -28,6 +28,16 @@ importScripts('/__/firebase/init.js');
 
 var messaging = firebase.messaging();
 console.log(messaging);
+messaging.setBackgroundMessageHandler(function(payload) {
+  console.log('[firebase-messaging-sw.js] Received background message ', payload);
+  // Customize notification here
+  var notificationTitle ='Hey!'//payload['data']['notification']['title'];
+  var notificationOptions = {
+    body: 'Background Message body.',
+    icon: '/images/icons/icon-144x144.png'
+  };
+  return self.registration.showNotification(notificationTitle,notificationOptions);
+});
 
 
 self.addEventListener('install', function (e) {
@@ -96,15 +106,4 @@ self.addEventListener('fetch', function (e) {
     }
 });
 
-messaging.setBackgroundMessageHandler(function(payload) {
-  console.log('[firebase-messaging-sw.js] Received background message ', payload);
-  // Customize notification here
-  var notificationTitle = 'Background Message Title';
-  var notificationOptions = {
-    body: 'Background Message body.',
-    icon: '/images/message.png'
-  };
 
-  return self.registration.showNotification(notificationTitle,
-    notificationOptions);
-});
