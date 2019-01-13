@@ -38,14 +38,34 @@ let showPrompt;
      *
      ****************************************************************************/
 
-   
+    
+    
+     /*function install(showPrompt){
+        showPrompt.prompt();
+        showPrompt.userChoice
+          .then((choiceResult) => {
+            if (choiceResult.outcome === 'accepted') {
+              console.log('User accepted the A2HS prompt');
+              gtag('event','click',{'event_category':"homescreen",'event_action':"accepted"});
+            } else {
+              console.log('User dismissed the A2HS prompt');
+            }
+            showPrompt = null;
+    });
+    }
+    
+   */
     
     window.addEventListener('beforeinstallprompt',(event)=>{
         event.preventDefault();
+        showPrompt=event
         console.log('beforeInstallPrompt');
-        showPrompt=event;
         document.querySelector('#HomescreenBtn').style.display='block';
+      //  setTimeout(install(event),3000);
     });
+    
+   
+    
     
     window.addEventListener('appinstalled',(event)=>{
       console.log('Already Added to HomeScreen');  
@@ -53,18 +73,18 @@ let showPrompt;
     
     
     document.querySelector('#HomescreenBtn').addEventListener('click',(event)=>{
-        showPrompt.prompt();
+         showPrompt.prompt();
         showPrompt.userChoice
           .then((choiceResult) => {
             if (choiceResult.outcome === 'accepted') {
               console.log('User accepted the A2HS prompt');
-              gtag('event','click',{'event-category':'homescreen','event_action':'accepted'});
+              gtag('event','click',{'event_category':"homescreen",'event_action':"accepted"});
             } else {
               console.log('User dismissed the A2HS prompt');
             }
             showPrompt = null;
-      });
-    })
+    });
+    });
 
     document.getElementById('Tok').addEventListener('click', function () {
         // Refresh all of the forecasts
@@ -385,7 +405,7 @@ let showPrompt;
         }
     */
 
-    function subscribeUser() {
+   /* function subscribeUser() {
 
         const applicationServerKey = urlB64ToUint8Array(applicationServerPublicKey);
         swRegistration.pushManager.subscribe({
@@ -458,7 +478,7 @@ let showPrompt;
         })
 
     }
-
+*/
     var initialWeatherForecast = {
         key: '2459115',
         label: 'New York, NY',
@@ -526,11 +546,8 @@ let showPrompt;
     
     }
     
+const messaging = firebase.messaging();
     
-    
-    
-    
-    const messaging = firebase.messaging();
   // [END get_messaging_object]
   // [START set_public_vapid_key]
   // Add the public key generated from the console here.
@@ -558,12 +575,16 @@ let showPrompt;
       showToken('Unable to retrieve refreshed token ', err);
     });
   });
+    
+    
   // [END refresh_token]
   // [START receive_message]
   // Handle incoming messages. Called when:
   // - a message is received while the app has focus
   // - the user clicks on an app notification created by a service worker
   //   `messaging.setBackgroundMessageHandler` handler.
+    
+    
   messaging.onMessage(function(payload) {
     console.log('Message received. ', payload);
     // [START_EXCLUDE]
@@ -571,6 +592,8 @@ let showPrompt;
     appendMessage(payload);
     // [END_EXCLUDE]
   });
+    
+    
   // [END receive_message]
   function resetUI() {
     clearMessages();
@@ -596,11 +619,15 @@ let showPrompt;
     });
     // [END get_token]
   }
+    
+    
   function showToken(currentToken) {
     // Show token in console and UI.
     var tokenElement = document.querySelector('#token');
     tokenElement.textContent = currentToken;
   }
+    
+    
   // Send the Instance ID token your application server, so that it can:
   // - send messages back to this app
   // - subscribe/unsubscribe the token from topics
@@ -614,12 +641,15 @@ let showPrompt;
           'unless it changes');
     }
   }
-  function isTokenSentToServer() {
+    
+  function isTokenSentToServer() {   
     return window.localStorage.getItem('sentToServer') === '1';
   }
+    
   function setTokenSentToServer(sent) {
     window.localStorage.setItem('sentToServer', sent ? '1' : '0');
   }
+    
   function showHideDiv(divId, show) {
     const div = document.querySelector('#' + divId);
     if (show) {
@@ -684,12 +714,12 @@ let showPrompt;
   }
   function updateUIForPushEnabled(currentToken) {
     showHideDiv(tokenDivId, true);
-    showHideDiv(permissionDivId, false);
+    showHideDiv('Per', false);
     showToken(currentToken);
   }
   function updateUIForPushPermissionRequired() {
     showHideDiv(tokenDivId, false);
-    showHideDiv(permissionDivId, true);
+    showHideDiv('Per', true);
   }
   resetUI();
 

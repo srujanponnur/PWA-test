@@ -42,7 +42,9 @@
 
   <header class="header">
     <h1 class="header__title">Weather PWA</h1>
-    <button id="butSubscribe">subscribe</button>
+    <!--<button id="butSubscribe">subscribe</button>-->
+      <button id='Per'
+                    >Request Permission</button>
     <button id="butRefresh" class="headerButton" aria-label="Refresh"></button>
     <button id="butAdd" class="headerButton" aria-label="Add"></button>
   </header>
@@ -56,14 +58,8 @@
                     >Delete Token</button>
           </div>
        
-      <div id="permission_div" style="display: none;">
-            <h4>Needs Permission</h4>
-            <p id="token"></p>
-            <button id='Per'
-                    >Request Permission</button>
-          </div>
       <div id="messages">
-      </div>
+     
 
       <div class="card cardTemplate weather-forecast" hidden>
       <div class="city-key" hidden></div>
@@ -191,11 +187,11 @@
       <circle id="spinner" cx="16" cy="16" r="14" fill="none"></circle>
     </svg>
   </div>
-    <section class='HomescreenSec'>
+    <footer class='HomescreenSec'>
         <button id='HomescreenBtn'>
         Add to Home Screen
         </button>
-    </section>
+    </footer>
     
   <!-- Uncomment the line below when ready to test with fake data -->
   

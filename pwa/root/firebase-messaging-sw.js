@@ -25,6 +25,8 @@ var filesToCache = ['/',
 importScripts('/__/firebase/5.5.6/firebase-app.js');
 importScripts('/__/firebase/5.5.6/firebase-messaging.js');
 importScripts('/__/firebase/init.js');
+//importScripts('path/to/offline-google-analytics-import.js');
+//goog.offlineGoogleAnalytics.initialize();
 
 var messaging = firebase.messaging();
 console.log(messaging);
